@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Layer 6
+    uniqueID: 1843639691
+    locked: 0
+  - name: Layer 5
+    uniqueID: 1171748555
+    locked: 0
+  - name: Layer 4
+    uniqueID: 1102179943
+    locked: 0
+  - name: Layer 3
+    uniqueID: 3716197691
+    locked: 0
+  - name: Layer 2
+    uniqueID: 3590324037
+    locked: 0
+  - name: Layer 1
+    uniqueID: 1267833593
+    locked: 0
+  - name: Layer 0
+    uniqueID: 250590111
+    locked: 0
+  - name: Layer -1
+    uniqueID: 2210635417
+    locked: 0
+  - name: Layer -2
+    uniqueID: 682346535
+    locked: 0
+  - name: Layer -3
+    uniqueID: 520882071
+    locked: 0
+  - name: Layer -4
+    uniqueID: 1404517453
+    locked: 0
+  - name: Layer -5
+    uniqueID: 2262058911
+    locked: 0
+  - name: Layer -6
+    uniqueID: 2736996761
+    locked: 0
