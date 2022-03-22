@@ -11,7 +11,6 @@ public class Enemy : GameBehaviour
     int knockback;
     public float attackDistance = 10f;
 
-    bool freeze = false;
   
     void Start()
     {
@@ -19,6 +18,7 @@ public class Enemy : GameBehaviour
     }
     private void Update()
     {
+        //AI navigation
         float distToPlayer = Vector3.Distance(transform.position, _P.transform.position);
         if (distToPlayer < attackDistance)
         {
@@ -36,7 +36,7 @@ public class Enemy : GameBehaviour
         attack = enemyData.attack;
         knockback = enemyData.knockBack;
     }
-    //damage on contact - might want to use ontrigger enter for enemies here.
+    //damage on contact - might want to use ontrigger enter for enemies here. - we gonna do this on hit boxes
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -60,7 +60,7 @@ public class Enemy : GameBehaviour
             //enemydies
         }
     }
-    //Hit indicator
+    //Hit indicator - won't need this when we get our animation
     IEnumerator GotHit()
     {       
         this.GetComponent<SpriteRenderer>().color = Color.red;
@@ -72,26 +72,5 @@ public class Enemy : GameBehaviour
     {
         return health <= 0;
     }
-    //enemy movement disable
-    public void FreezeEnemy(bool _fstatus)
-    {
-        freeze = _fstatus;
-        if (freeze)
-        {
-            GetComponent<AIDestinationSetter>().enabled = false;
-        }
-        else
-        {
-            GetComponent<AIDestinationSetter>().enabled = true;
-        }
-    }
-    //Events
-    private void OnEnable()
-    {
-        GameEvents.OnFreezeEvent += FreezeEnemy;
-    }
-    private void OnDisable()
-    {
-        GameEvents.OnFreezeEvent -= FreezeEnemy;
-    }
+
 }
