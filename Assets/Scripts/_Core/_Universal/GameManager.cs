@@ -35,7 +35,7 @@ public class GameManager : Singleton<GameManager>
                 break;
             case GameState.GameOver:
                 Cursor.visible = true;
-                Time.timeScale = 0;
+                Time.timeScale = 0.5f;
                 break;
         }
     }

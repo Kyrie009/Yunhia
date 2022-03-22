@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Used to spawn and respawn enemies.
 public class EnemyManager : MonoBehaviour
 {
     // Start is called before the first frame update

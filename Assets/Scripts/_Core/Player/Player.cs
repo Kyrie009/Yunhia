@@ -15,7 +15,6 @@ public class Player : Singleton<Player>
     [Header("References")]
     CharacterController2D controller;
     public Animator animator;
-    public Animator weaponAnimator;
 
     public float attackCooldown = 0.5f;
 
@@ -30,10 +29,7 @@ public class Player : Singleton<Player>
     void Update()
     {
         GetInput();
-
     }
-
-    
 
     void FixedUpdate()
     {
@@ -44,9 +40,9 @@ public class Player : Singleton<Player>
     private void GetInput()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-        animator.SetFloat("Speed", Mathf.Abs(horizontalMove)); //Movement Animation 
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove)); //Movement Animation based on ur speed
 
-        if (attackCooldown > 0)
+        if (attackCooldown > 0) //We need hit timers mannnn//
         {
             attackCooldown -= Time.deltaTime;
         }
@@ -57,13 +53,11 @@ public class Player : Singleton<Player>
             {
                 //timer between attacks tba
                 animator.SetTrigger("Attack1");
-                weaponAnimator.SetTrigger("Attack1");
                 attackCooldown = 0.5f;
             }
             if (Input.GetKeyDown(KeyCode.L))
             {
                 animator.SetTrigger("Attack2");
-                weaponAnimator.SetTrigger("Attack2");
                 attackCooldown = 0.5f;
             }
         }
@@ -99,12 +93,16 @@ public class Player : Singleton<Player>
     //Takes hit
     public void Hit(int _dmg)
     {
-        currentHealth -= _dmg;
-        StartCoroutine(GotHit());
-        if (IsDead())
+        currentHealth -= _dmg;       
+        if (IsDead()) //check if you died
         {
             currentHealth = 0;
             GameEvents.ReportPlayerDied(this);
+            GameEvents.ReportGameOver();
+        }
+        else //otherwise get hit as normal
+        {
+            StartCoroutine(GotHit());
         }
         _UI.UpdateStatus();
     }
@@ -112,9 +110,8 @@ public class Player : Singleton<Player>
     //Hit indicator
     IEnumerator GotHit()
     {
-        this.GetComponent<SpriteRenderer>().color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        this.GetComponent<SpriteRenderer>().color = Color.white;
+        yield return new WaitForSeconds(0.1f); //Prevent spam
+        //hit animation or something here
     }
 
     //Check if Dead

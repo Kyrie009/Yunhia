@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 759341242}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: ChangeScene
+        m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DEMO
+  m_text: WhiteBox
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 55737a54a316a5c41bd94217df13a9ce, type: 2}
   m_sharedMaterial: {fileID: 6704663571536605687, guid: 55737a54a316a5c41bd94217df13a9ce, type: 2}
@@ -1370,7 +1370,7 @@ GameObject:
   - component: {fileID: 1423132010}
   - component: {fileID: 1423132009}
   m_Layer: 5
-  m_Name: DEMO
+  m_Name: WhiteBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1723,14 +1723,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 759341242}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: StartingScene
-        m_Mode: 1
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: StarterForest
+          m_StringArgument: WhiteBox
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1952966460

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AreaTransition : GameBehaviour
 {
-    public string destinationName;
     public Transform newDestination;
     
     void Start()
@@ -16,7 +15,6 @@ public class AreaTransition : GameBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            _UI.areaName = destinationName;
             _UI.TransitionScreen();
             StartCoroutine(TransitionTime(collision));
         }

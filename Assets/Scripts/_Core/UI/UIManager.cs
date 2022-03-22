@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class UIManager : Singleton<UIManager>
 {
-    //OnScreenText
-    public string areaName;
-    //UI
+    [Header("UI")]
     public TMP_Text healthText;
     public TMP_Text expText;
-    public TMP_Text areaText;
-    //Visual
+    public TMP_Text areaText;   
     public Slider healthBar;
     public Slider expBar;
     public Animator animator;
-    //Screens
+    [Header("References")]
     public GameObject gameOverScreen;
     public GameObject menuScreen;
     public GameObject weaponScreen;
@@ -25,24 +23,28 @@ public class UIManager : Singleton<UIManager>
     //Timerstuff
     //public TMP_Text timerText; //Text box for your timer
     //public Slider timerSlider; //Slider based on time
+    bool paused = false;
+
 
     private void Start()
     {
         //SetDrawOrder
         gameOverScreen.SetActive(false);
         menuScreen.SetActive(false);
+        //Initialization
         healthBar.maxValue = _P.maxHealth;
+        UpdateStatus();
         OpeningScreen();
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ShowPauseMenu();
+            IsPaused();
         }
     }
 
-    //Updates player's new status
+    //Updates the player's status
     public void UpdateStatus()
     {
         healthBar.value = _P.currentHealth;
@@ -62,26 +64,42 @@ public class UIManager : Singleton<UIManager>
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds); //Display timer in minute:second format
     }*/
 
-    //Transitionscreen animation
+    //Scene Transitions
     public void OpeningScreen()
     {
-        areaText.text = areaName;
+        areaText.text = SceneManager.GetActiveScene().name;
         animator.SetTrigger("OpeningScene");
 
     }
     public void TransitionScreen()
     {
-        areaText.text = areaName;
         animator.SetTrigger("Transition");
+    }
 
-    }
-    //UI Navigation
-    public void ShowPauseMenu()
+    //PauseMenu Control
+    public void IsPaused()
     {
-        menuScreen.SetActive(true);
-        ShowWeapons();
-        GameEvents.ReportGamePause();
+        paused = !paused;
+        if (paused == true)
+        {
+            menuScreen.SetActive(paused);
+            GameEvents.ReportGamePause(); //Reports PauseState
+        }
+        else
+        {
+            menuScreen.SetActive(false);
+            GameEvents.ReportGamePlaying(); //Reports Resume
+        }
+               
     }
+    
+    public void GameOver(Player _p)
+    {
+        gameOverScreen.SetActive(true);
+    }
+
+    //Regions
+    #region InventoryTabs
     public void ShowWeapons()
     {
         weaponScreen.SetActive(true);
@@ -100,15 +118,8 @@ public class UIManager : Singleton<UIManager>
         itemScreen.SetActive(false);
         materialScreen.SetActive(true);
     }
-    public void ReturnFromMenu()
-    {
-        menuScreen.SetActive(false);
-        GameEvents.ReportGamePlaying();
-    }
-    public void GameOver(Player _p)
-    {
-        gameOverScreen.SetActive(true);
-    }
+    #endregion
+
     //Events
     private void OnEnable()
     {

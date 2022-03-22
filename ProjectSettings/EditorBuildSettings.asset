@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: eb81f78e1d1439d47834cffedbe4f4af
   - enabled: 1
-    path: Assets/Scenes/DemoScene.unity
-    guid: 461859c4f22578940aa196e917ff6dac
-  - enabled: 1
     path: Assets/Scenes/WhiteBox.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

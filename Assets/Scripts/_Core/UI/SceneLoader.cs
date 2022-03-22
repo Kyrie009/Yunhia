@@ -7,9 +7,10 @@ public class SceneLoader : GameBehaviour
 {
     public AudioSource button;
     //type in the scene you want loaded
-    public void ChangeScene(string _sceneName)
+    public void LoadScene(string _sceneName)
     {
         button.Play();
+        GameEvents.ReportGamePlaying();
         SceneManager.LoadScene(_sceneName);
     }
     //Reloads the current scene we are in
@@ -18,25 +19,12 @@ public class SceneLoader : GameBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
     }
-    //Loads Title using string name
-    public void ToTitleScene()
-    {       
-        GameEvents.ReportGameStart();
-        SceneManager.LoadScene(0);
-    }
-    //Loads First GameLevel
-    //Loads Title using string name
-    public void StartingScene()
+
+    public void LoadTitle()
     {
         button.Play();
-        GameEvents.ReportGamePlaying();
-        SceneManager.LoadScene(1);
-    }
-
-    //Gets Active Scene Name
-    public string GetSceneName()
-    {
-        return SceneManager.GetActiveScene().name;
+        GameEvents.ReportGameStart();
+        SceneManager.LoadScene("Title");
     }
 
     //Quits our game
