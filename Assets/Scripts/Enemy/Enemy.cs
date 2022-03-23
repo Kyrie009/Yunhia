@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
+
 
 public class Enemy : GameBehaviour
 {
@@ -18,16 +18,7 @@ public class Enemy : GameBehaviour
     }
     private void Update()
     {
-        //AI navigation
-        float distToPlayer = Vector3.Distance(transform.position, _P.transform.position);
-        if (distToPlayer < attackDistance)
-        {
-            GetComponent<AIDestinationSetter>().target = _P.transform;
-        }
-        if (distToPlayer > attackDistance)
-        {
-            GetComponent<AIDestinationSetter>().target = null;
-        }
+        
     }
     //Links up enemystats from the scriptableobject
     public void Setup()

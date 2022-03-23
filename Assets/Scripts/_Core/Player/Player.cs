@@ -98,7 +98,7 @@ public class Player : Singleton<Player>
         {
             currentHealth = 0;
             GameEvents.ReportPlayerDied(this);
-            GameEvents.ReportGameOver();
+            Invoke(nameof(GameOver), 1f);
         }
         else //otherwise get hit as normal
         {
@@ -112,6 +112,11 @@ public class Player : Singleton<Player>
     {
         yield return new WaitForSeconds(0.1f); //Prevent spam
         //hit animation or something here
+    }
+
+    public void GameOver()
+    {
+        GameEvents.ReportGameOver();
     }
 
     //Check if Dead

@@ -82,13 +82,13 @@ public class UIManager : Singleton<UIManager>
         paused = !paused;
         if (paused == true)
         {
-            menuScreen.SetActive(paused);
             GameEvents.ReportGamePause(); //Reports PauseState
+            menuScreen.SetActive(paused);
         }
         else
         {
-            menuScreen.SetActive(false);
             GameEvents.ReportGamePlaying(); //Reports Resume
+            menuScreen.SetActive(false); //set actives to false should be done last or the rest of the code after it won't execute
         }
                
     }
