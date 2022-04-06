@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Title.unity
+    path: Assets/WhiteBox Materials/Scenes/Title.unity
     guid: eb81f78e1d1439d47834cffedbe4f4af
   - enabled: 1
-    path: Assets/Scenes/WhiteBox.unity
+    path: Assets/WhiteBox Materials/Scenes/WhiteBox.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Yunhia_Game/Scenes/Runic Forest.unity
+    guid: 411f26bfa5a9f39498c5b8b7147798f9
   m_configObjects: {}
