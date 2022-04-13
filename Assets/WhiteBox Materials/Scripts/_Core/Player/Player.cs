@@ -20,6 +20,7 @@ public class Player : Singleton<Player>
     CharacterController2D controller;
     public Animator anim;
 
+    bool canMove = true;
     bool isAttacking = false;
     public float attackSpeed = 0.1f;
 
@@ -34,7 +35,10 @@ public class Player : Singleton<Player>
     // Update is called once per frame
     void Update()
     {
-        GetInput();
+        if (canMove)
+        {
+            GetInput();
+        }       
         AttackInput();
     }
 
@@ -84,6 +88,7 @@ public class Player : Singleton<Player>
         {
             if (Input.GetMouseButtonDown(0))
             {
+                canMove = false;
                 isAttacking = true;
                 anim.SetTrigger("Attack1"); //play hit animation
                 StartCoroutine(AttackCooldown());
@@ -95,6 +100,7 @@ public class Player : Singleton<Player>
     {
         yield return new WaitForSeconds(attackSpeed);
         isAttacking = false;
+        canMove = true;
     }
 
     public void OnLanding()
