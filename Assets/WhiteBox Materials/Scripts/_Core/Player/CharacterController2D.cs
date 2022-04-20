@@ -4,6 +4,7 @@ using UnityEngine.Events;
 //Essentially the rules for characterbehaviour
 public class CharacterController2D : MonoBehaviour
 {
+	public float knockbackForce = 50f;
 	[SerializeField] private float m_JumpForce = 1000f;							// Amount of force added when the player jumps.
 	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
@@ -14,7 +15,7 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private Collider2D m_CrouchDisableCollider;				// A collider that will be disabled when crouching
 
 	const float k_GroundedRadius = .05f; // Radius of the overlap circle to determine if grounded
-	private bool m_Grounded;            // Whether or not the player is grounded.w 
+	public bool m_Grounded;            // Whether or not the player is grounded.w 
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -152,4 +153,17 @@ public class CharacterController2D : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+	public void Knockback()
+    {
+        if (m_FacingRight)
+        {
+			m_Rigidbody2D.velocity = Vector2.left * knockbackForce;
+		}
+        else
+        {
+			m_Rigidbody2D.velocity = Vector2.right * knockbackForce;
+		}		
+	}
+
 }

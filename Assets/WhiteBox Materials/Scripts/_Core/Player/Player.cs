@@ -35,10 +35,7 @@ public class Player : Singleton<Player>
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
-        {
-            GetInput();
-        }       
+        GetInput();     
         AttackInput();
     }
 
@@ -88,8 +85,13 @@ public class Player : Singleton<Player>
         {
             if (Input.GetMouseButtonDown(0))
             {
+                if (controller.m_Grounded)
+                {
+                    horizontalMove = 0;
+                }               
                 canMove = false;
                 isAttacking = true;
+                anim.SetBool("IsJumping", false);
                 anim.SetTrigger("Attack1"); //play hit animation
                 StartCoroutine(AttackCooldown());
             }
@@ -130,6 +132,7 @@ public class Player : Singleton<Player>
         }
         else //otherwise get hit as normal
         {
+            controller.Knockback();
             StartCoroutine(GotHit());
         }
         _UI.UpdateStatus();
@@ -138,7 +141,7 @@ public class Player : Singleton<Player>
     //Hit indicator
     IEnumerator GotHit()
     {
-        yield return new WaitForSeconds(0.1f); //Prevent spam
+        yield return new WaitForSeconds(0.1f); //Prevent spam        
         anim.SetTrigger("Hit");
     }
 

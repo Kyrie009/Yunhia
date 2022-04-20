@@ -22,8 +22,8 @@ public class AreaTransition : GameBehaviour
 
     IEnumerator TransitionTime(Collider2D collision)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         collision.transform.position = newDestination.position;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
     }
 }
