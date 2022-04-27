@@ -66,12 +66,27 @@ public class EnemyAI : MonoBehaviour
         {
             //check if we are at the end of the line (make the change -1)
             if (nextID == points.Count - 1)
+            {
                 idChangeValue = -1;
+                Flip();
+            }
+                
             //check if we are at the start of the line (make change +1)
             if (nextID == 0)
+            {
                 idChangeValue = 1;
+                Flip();
+            }              
             //Apply change on the next ID
             nextID += idChangeValue;
         }
+    }
+
+    public void Flip()
+    {
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
