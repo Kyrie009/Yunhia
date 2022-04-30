@@ -16,10 +16,14 @@ public class Player : Singleton<Player>
     int canJumpAgain = 0; //Multi jump check
     [SerializeField] private int extraJumps = 1; //Multi jump counter
     bool crouch = false;
+    [Header("Collisions")]
+    public Collider2D playerCollider;
     [Header("References")]
     CharacterController2D controller;
     public Animator anim;
 
+    public bool recoveryJump;
+    bool jumpingOff = false;
     bool canMove = true;
     bool isAttacking = false;
     public float attackSpeed = 0.1f;
@@ -51,7 +55,7 @@ public class Player : Singleton<Player>
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         anim.SetFloat("Speed", Mathf.Abs(horizontalMove)); //Movement Animation based on ur speed      
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !Input.GetKey(KeyCode.S))
         {
             if(canJumpAgain <= extraJumps)
             {
@@ -64,19 +68,61 @@ public class Player : Singleton<Player>
                     anim.SetBool("IsDoubleJumping", true);
                 }
                 canJumpAgain++;
-            }
-            
+            }        
+        }
+        if (Input.GetButtonDown("Jump") && recoveryJump == true)
+        {
+            recoveryJump = false;
+            multiJump = true;
+            canJumpAgain++;
+            anim.SetBool("IsJumping", false);
+            anim.SetBool("IsDoubleJumping", true);
         }
 
-        /*
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if(jumpingOff == true)
+        {
+            if (Input.GetButtonDown("Jump") && Input.GetKey(KeyCode.S))
+            {
+                jumpingOff = false;
+                recoveryJump = true;
+                StartCoroutine(JumpOff());
+            }
+        }
+        
+        /*if (Input.GetKeyDown(KeyCode.S))
         {
             crouch = true;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        else if (Input.GetKeyUp(KeyCode.S))
         {
             crouch = false;
         }*/
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            jumpingOff = true;
+        }
+        else
+        {
+            jumpingOff = false;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        jumpingOff = false;
+    }
+
+    IEnumerator JumpOff()
+    {
+        crouch = true;
+        anim.SetBool("IsJumping",true);
+        yield return new WaitForSeconds(0.3f);
+        crouch = false;
+        jumpingOff = false;
     }
 
     public void AttackInput()
@@ -110,7 +156,9 @@ public class Player : Singleton<Player>
         anim.SetBool("IsJumping", false);
         anim.SetBool("IsDoubleJumping", false);
         canJumpAgain = 0;
+        recoveryJump = false;
     }
+
 
     //Resets Health and other status effects to default
     public void Setup()
