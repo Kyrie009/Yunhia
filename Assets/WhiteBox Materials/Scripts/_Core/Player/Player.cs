@@ -7,6 +7,8 @@ public class Player : Singleton<Player>
     [Header("Stats")]
     public int maxHealth = 100;
     public int currentHealth;
+    public int maxMana = 100;
+    public int currentMana;
     public int attack;
     [Header("Movement")]
     public float runSpeed = 5f;
@@ -24,7 +26,7 @@ public class Player : Singleton<Player>
 
     public bool recoveryJump;
     bool jumpingOff = false;
-    bool canMove = true;
+    //bool canMove = true;
     bool isAttacking = false;
     public float attackSpeed = 0.1f;
 
@@ -98,6 +100,24 @@ public class Player : Singleton<Player>
             crouch = false;
         }*/
     }
+    public void AttackInput()
+    {
+        if (!isAttacking)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (controller.m_Grounded)
+                {
+                    horizontalMove = 0;
+                }
+                //canMove = false;
+                isAttacking = true;
+                anim.SetBool("IsJumping", false);
+                anim.SetTrigger("Attack1"); //play hit animation
+                StartCoroutine(AttackCooldown());
+            }
+        }
+    }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -124,31 +144,11 @@ public class Player : Singleton<Player>
         crouch = false;
         jumpingOff = false;
     }
-
-    public void AttackInput()
-    {
-        if (!isAttacking)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (controller.m_Grounded)
-                {
-                    horizontalMove = 0;
-                }               
-                canMove = false;
-                isAttacking = true;
-                anim.SetBool("IsJumping", false);
-                anim.SetTrigger("Attack1"); //play hit animation
-                StartCoroutine(AttackCooldown());
-            }
-        }
-    }
-
     IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(attackSpeed);
         isAttacking = false;
-        canMove = true;
+        //canMove = true;
     }
 
     public void OnLanding()
@@ -158,13 +158,28 @@ public class Player : Singleton<Player>
         canJumpAgain = 0;
         recoveryJump = false;
     }
-
-
     //Resets Health and other status effects to default
     public void Setup()
     {
         currentHealth = maxHealth;
+        currentMana = maxMana;
         _UI.UpdateStatus();
+    }
+
+    public void StatusChange(int _hp, int _mp)
+    {
+        currentHealth += _hp;
+        currentMana += _mp;
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        if(currentMana > maxMana)
+        {
+            currentMana = maxMana;
+        }
+        _UI.UpdateStatus();
+
     }
 
     #region Combat

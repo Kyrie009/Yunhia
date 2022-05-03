@@ -9,10 +9,10 @@ public class UIManager : Singleton<UIManager>
 {
     [Header("UI")]
     public TMP_Text healthText;
-    public TMP_Text expText;
+    public TMP_Text manaText;
     public TMP_Text areaText;   
     public Slider healthBar;
-    public Slider expBar;
+    public Slider manaBar;
     public Animator animator;
     [Header("References")]
     public GameObject gameOverScreen;
@@ -49,6 +49,8 @@ public class UIManager : Singleton<UIManager>
     {
         healthBar.value = _P.currentHealth;
         healthText.text = _P.currentHealth + " / " + _P.maxHealth;
+        manaBar.value = _P.currentMana;
+        manaText.text = _P.currentMana + " / " + _P.maxMana;
     }
     /*
     public void UpdateTimer(float _timer)
