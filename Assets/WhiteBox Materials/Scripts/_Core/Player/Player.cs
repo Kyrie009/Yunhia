@@ -23,6 +23,7 @@ public class Player : Singleton<Player>
     [Header("References")]
     CharacterController2D controller;
     public Animator anim;
+    public RecoveryCounter recoveryCounter;
 
     public bool recoveryJump;
     bool jumpingOff = false;
@@ -34,6 +35,7 @@ public class Player : Singleton<Player>
     {
         //Get refs
         controller = GetComponent<CharacterController2D>();
+        recoveryCounter = GetComponent<RecoveryCounter>();
         anim = GetComponent<Animator>();
         //Setup
         Setup();
@@ -185,20 +187,24 @@ public class Player : Singleton<Player>
     #region Combat
     //Takes hit
     public void Hit(int _dmg)
-    {        
-        currentHealth -= _dmg;       
-        if (IsDead()) //check if you died
+    {
+        if (recoveryCounter.recovering == false)
         {
-            currentHealth = 0;
-            GameEvents.ReportPlayerDied(this);
-            Invoke(nameof(GameOver), 1f);
-        }
-        else //otherwise get hit as normal
-        {
-            controller.Knockback();
-            StartCoroutine(GotHit());
-        }
-        _UI.UpdateStatus();
+            currentHealth -= _dmg;
+            if (IsDead()) //check if you died
+            {
+                currentHealth = 0;
+                GameEvents.ReportPlayerDied(this);
+                Invoke(nameof(GameOver), 1f);
+                recoveryCounter.counter = 0;
+            }
+            else //otherwise get hit as normal
+            {
+                controller.Knockback();
+                StartCoroutine(GotHit());
+            }
+            _UI.UpdateStatus();
+        }      
     }
 
     //Hit indicator

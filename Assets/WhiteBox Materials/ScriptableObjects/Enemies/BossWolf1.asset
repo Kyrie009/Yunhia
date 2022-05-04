@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e01111d3506d8940a064f3858c0c469, type: 3}
-  m_Name: Starved One
+  m_Name: BossWolf1
   m_EditorClassIdentifier: 
-  enemyName: Starved One
-  health: 100
-  attack: 10
+  enemyName: BossWolf1
+  health: 1000
+  attack: 25
   knockBack: 500
