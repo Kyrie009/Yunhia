@@ -44,7 +44,7 @@ public class Enemy : GameBehaviour
     {       
         health -= _dmg;
         _UI.audioSource.PlayOneShot(hitSound);
-        StartCoroutine(GotHit());
+        //StartCoroutine(GotHit());
         if (IsDead())
         {
             this.GetComponent<BoxCollider2D>().enabled = false;
@@ -53,13 +53,14 @@ public class Enemy : GameBehaviour
             //enemydies
         }
     }
-    //Hit indicator - won't need this when we get our animation
+    //Hit indicator - won't need this when we get our animation and this method messes up with recolored sprites.
     IEnumerator GotHit()
     {       
         this.GetComponent<SpriteRenderer>().color = Color.red;
         yield return new WaitForSeconds(0.5f);
         this.GetComponent<SpriteRenderer>().color = Color.white; 
     }
+
     //Check if enemy dead
     public bool IsDead()
     {
