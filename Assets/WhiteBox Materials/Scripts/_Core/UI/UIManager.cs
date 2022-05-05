@@ -15,6 +15,7 @@ public class UIManager : Singleton<UIManager>
     public Slider manaBar;
     public TMP_Text runesText;
     public Animator animator;
+    public GameObject key1;
     [Header("References")]
     public GameObject gameOverScreen;
     public GameObject menuScreen;
@@ -69,6 +70,10 @@ public class UIManager : Singleton<UIManager>
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds); //Display timer in minute:second format
     }*/
+    public void UpdateKey(bool _hasKey)
+    {
+        key1.SetActive(_hasKey);
+    }
 
     //Scene Transitions
     public void OpeningScreen()

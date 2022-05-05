@@ -29,6 +29,7 @@ public class Player : Singleton<Player>
     public Animator anim;
     public RecoveryCounter recoveryCounter;
 
+    public bool hasKey; //key not using ruins system
     public bool recoveryJump;
     bool jumpingOff = false;
     //bool canMove = true;
@@ -125,7 +126,7 @@ public class Player : Singleton<Player>
             }
         }
     }
-
+    //collision effects
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
@@ -157,7 +158,7 @@ public class Player : Singleton<Player>
         isAttacking = false;
         //canMove = true;
     }
-
+    //events when player lands
     public void OnLanding()
     {
         anim.SetBool("IsJumping", false);
@@ -170,6 +171,7 @@ public class Player : Singleton<Player>
     {
         currentHealth = maxHealth;
         currentMana = maxMana;
+        ManageKey(false);
         _UI.UpdateStatus();
     }
     //updates what the player gains from quest, pickups, killing enemies, etc.
@@ -187,6 +189,12 @@ public class Player : Singleton<Player>
             currentMana = maxMana;
         }
         _UI.UpdateStatus();
+    }
+
+    public void ManageKey(bool _hasKey)
+    {
+        hasKey = _hasKey;
+        _UI.UpdateKey(_hasKey);
     }
 
     #region Combat

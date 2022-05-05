@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Collectable : GameBehaviour
 {
-    enum ItemType { InventoryItem, Health, Mana, Ammo }; //Creates an ItemType category
+    enum ItemType { InventoryItem, Health, Mana, Ammo, Key }; //Creates an ItemType category
     [SerializeField] ItemType itemType; //Allows us to select what type of item the gameObject is in the inspector
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip bounceSound;
@@ -33,7 +33,6 @@ public class Collectable : GameBehaviour
 
     public void Collect()
     {
-        Debug.Log("1");
         if (itemType == ItemType.Health)
         {
             _P.PlayerGains(itemAmount,0,0);
@@ -41,6 +40,10 @@ public class Collectable : GameBehaviour
         else if (itemType == ItemType.Mana)
         {
             _P.PlayerGains(0, itemAmount, 0);
+        }
+        else if (itemType == ItemType.Key)
+        {
+            _P.ManageKey(true);
         }
 
         _UI.audioSource.PlayOneShot(collectSounds[Random.Range(0, collectSounds.Length)], Random.Range(.6f, 1f));

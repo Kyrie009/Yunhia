@@ -7,7 +7,7 @@ it will launch. This script also ensures the collectable's trigger is disabled f
 a brief period so the player doesn't immediately collect it after instantiation, not knowing what he collected.
 */
 
-public class Ejector : MonoBehaviour
+public class Ejector : GameBehaviour
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip bounceSound;
