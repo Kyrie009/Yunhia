@@ -21,6 +21,9 @@ public class Player : Singleton<Player>
     bool crouch = false;
     [Header("Collisions")]
     public Collider2D playerCollider;
+    [Header("Audio")]
+    public AudioClip hitSound;
+    public AudioClip swordSwing;
     [Header("References")]
     CharacterController2D controller;
     public Animator anim;
@@ -114,6 +117,7 @@ public class Player : Singleton<Player>
                     horizontalMove = 0;
                 }
                 //canMove = false;
+                _UI.audioSource.PlayOneShot(swordSwing);
                 isAttacking = true;
                 anim.SetBool("IsJumping", false);
                 anim.SetTrigger("Attack1"); //play hit animation
@@ -192,6 +196,7 @@ public class Player : Singleton<Player>
         if (recoveryCounter.recovering == false)
         {
             currentHealth -= _dmg;
+            _UI.audioSource.PlayOneShot(hitSound);
             if (IsDead()) //check if you died
             {
                 currentHealth = 0;

@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 1
   audioSource: {fileID: 6056909802633836653}
-  bounceSound: {fileID: 8300000, guid: 6f158957132d344eaaef9d19f81635eb, type: 3}
+  bounceSound: {fileID: 8300000, guid: f467e1388ef044c0cb81b75ea9a83374, type: 3}
   collectSounds:
   - {fileID: 8300000, guid: 0381d2ccc51d44711af375574f3de89a, type: 3}
   itemAmount: 5
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  bounceSound: {fileID: 8300000, guid: 6f158957132d344eaaef9d19f81635eb, type: 3}
+  bounceSound: {fileID: 8300000, guid: f467e1388ef044c0cb81b75ea9a83374, type: 3}
   collectableTrigger: {fileID: 6056909802633836642}
   launchOnStart: 0
 --- !u!82 &6056909802633836653

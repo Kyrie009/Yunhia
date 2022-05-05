@@ -10,7 +10,7 @@ public class Enemy : GameBehaviour
     public int attack;
     int knockback;
     public float attackDistance = 10f;
-    public AudioSource hitSound;
+    public AudioClip hitSound;
     Instantiator instantiator;
   
     void Start()
@@ -34,7 +34,6 @@ public class Enemy : GameBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //Enemy Damage
-            hitSound.Play();
             _P.Hit(attack);
             //Knockback
         }
@@ -44,6 +43,7 @@ public class Enemy : GameBehaviour
     public void Hit(int _dmg)
     {       
         health -= _dmg;
+        _UI.audioSource.PlayOneShot(hitSound);
         StartCoroutine(GotHit());
         if (IsDead())
         {
