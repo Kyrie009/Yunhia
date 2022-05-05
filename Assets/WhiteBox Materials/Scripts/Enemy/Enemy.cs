@@ -11,9 +11,13 @@ public class Enemy : GameBehaviour
     int knockback;
     public float attackDistance = 10f;
     public AudioSource hitSound;
+    Instantiator instantiator;
   
     void Start()
     {
+        //initialise reference
+        instantiator = GetComponent<Instantiator>();
+
         Setup();
     }
 
@@ -43,7 +47,9 @@ public class Enemy : GameBehaviour
         StartCoroutine(GotHit());
         if (IsDead())
         {
-            Destroy(this.gameObject);
+            this.GetComponent<BoxCollider2D>().enabled = false;
+            this.GetComponent<Renderer>().enabled = false;
+            KillReward();
             //enemydies
         }
     }
@@ -58,6 +64,12 @@ public class Enemy : GameBehaviour
     public bool IsDead()
     {
         return health <= 0;
+    }
+
+    public void KillReward()
+    {
+        _P.PlayerGains(0, 0, Random.Range(10,40)); // runes gain
+        instantiator.InstantiateObjects(); //drop collectables
     }
 
 }

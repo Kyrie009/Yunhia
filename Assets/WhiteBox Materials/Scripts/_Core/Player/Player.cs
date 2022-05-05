@@ -10,6 +10,7 @@ public class Player : Singleton<Player>
     public int maxMana = 100;
     public int currentMana;
     public int attack;
+    public int runeCurrency;
     [Header("Movement")]
     public float runSpeed = 5f;
     public float horizontalMove = 0f;
@@ -167,11 +168,12 @@ public class Player : Singleton<Player>
         currentMana = maxMana;
         _UI.UpdateStatus();
     }
-
-    public void StatusChange(int _hp, int _mp)
+    //updates what the player gains from quest, pickups, killing enemies, etc.
+    public void PlayerGains(int _hp, int _mp, int _runes)
     {
         currentHealth += _hp;
         currentMana += _mp;
+        runeCurrency += _runes;
         if(currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
@@ -181,7 +183,6 @@ public class Player : Singleton<Player>
             currentMana = maxMana;
         }
         _UI.UpdateStatus();
-
     }
 
     #region Combat

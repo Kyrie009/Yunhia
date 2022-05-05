@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
     public TMP_Text areaText;   
     public Slider healthBar;
     public Slider manaBar;
+    public TMP_Text runesText;
     public Animator animator;
     [Header("References")]
     public GameObject gameOverScreen;
@@ -20,6 +21,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject weaponScreen;
     public GameObject itemScreen;
     public GameObject materialScreen;
+    public AudioSource audioSource;
     //Timerstuff
     //public TMP_Text timerText; //Text box for your timer
     //public Slider timerSlider; //Slider based on time
@@ -28,6 +30,7 @@ public class UIManager : Singleton<UIManager>
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         //SetDrawOrder
         gameOverScreen.SetActive(false);
         menuScreen.SetActive(false);
@@ -51,6 +54,7 @@ public class UIManager : Singleton<UIManager>
         healthText.text = _P.currentHealth + " / " + _P.maxHealth;
         manaBar.value = _P.currentMana;
         manaText.text = _P.currentMana + " / " + _P.maxMana;
+        runesText.text = "Runes: " + _P.runeCurrency;
     }
     /*
     public void UpdateTimer(float _timer)
