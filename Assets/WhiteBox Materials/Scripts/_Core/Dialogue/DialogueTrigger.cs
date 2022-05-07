@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class DialogueTrigger : GameBehaviour
 {
-    [Header("Check Options")]
+    [Header("Trigger Options")]
     public bool invisible = false;
     public bool triggerOn = false;
-    public bool isNPC = false;
+    public bool interactableObject = false;
     public bool destroyOnCompletion = false;
+    public bool hasCutScene;
+    [Header("CutScene")]
+    public Sprite cutScene;
     [Header("References")]
-    public Dialogue dialogue;    
-    public AudioSource soundEffect;
+    public Dialogue dialogue;
+    [Header("Sounds")]
+    public AudioSource[] soundEffects;
     //chacks
     bool canInteract = false;
 
@@ -30,6 +34,8 @@ public class DialogueTrigger : GameBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                soundEffects[0].Play();
+                canInteract = false;
                 TriggerDialogue();
             }
         }
@@ -39,14 +45,13 @@ public class DialogueTrigger : GameBehaviour
     {
         if (triggerOn && collision.CompareTag("Player"))
         {
-            GetSound();
             TriggerDialogue();          
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {  
         //Checks if player can interact with someone.
-        if (!_DM.IsDialogueActive() && isNPC && collision.CompareTag("Player"))
+        if (!_DM.IsDialogueActive() && interactableObject && collision.CompareTag("Player"))
         {
             canInteract = true;
             //enable helper text here
@@ -56,8 +61,15 @@ public class DialogueTrigger : GameBehaviour
             canInteract = false;
             //disable helper text here
         }
-    }
 
+        if (hasCutScene)
+        {
+            if (_DM.IsDialogueEnded())
+            {
+                _UI.cutsceneAnim.SetTrigger("CloseCutScene");
+            }
+        }
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -72,14 +84,11 @@ public class DialogueTrigger : GameBehaviour
     {
         //disable helpertext here
         _DM.StartDialogue(dialogue);
-    }
-    //play sound
-    private void GetSound()
-    {
-        if (soundEffect != null)
+        if (hasCutScene) //play cutscene if it has it
         {
-            soundEffect.Play();
+            _UI.PlayCutscene(cutScene);
         }
+        GameEvents.ReportInteracting();
     }
 
 }

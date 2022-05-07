@@ -11,7 +11,6 @@ public class GameBehaviour : JMC
     protected static AudioManager _AM { get { return AudioManager.INSTANCE; } }
     //Player
     protected static Player _P { get { return Player.INSTANCE; } }
-    protected static Player _PM { get { return Player.INSTANCE; } }
 
  }
 

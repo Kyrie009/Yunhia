@@ -15,6 +15,7 @@ public class DialogueManager : Singleton<DialogueManager>
     public TMP_Text sentenceText;
     //checks
     bool isDialogueActive = false;
+    bool isDialogueEnded = false;
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         if (isDialogueActive)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 DisplayNextSentence();
             }
@@ -33,6 +34,7 @@ public class DialogueManager : Singleton<DialogueManager>
     //Starts the Dialogue
     public void StartDialogue(Dialogue dialogue)
     {
+        isDialogueEnded = false;
         isDialogueActive = true;
         animator.SetBool("active", true);
         nameText.text = dialogue.name;
@@ -76,12 +78,19 @@ public class DialogueManager : Singleton<DialogueManager>
     void EndDialogue()
     {
         isDialogueActive = false;
+        isDialogueEnded = true;
         animator.SetBool("active", false);
+        GameEvents.ReportGamePlaying();
     }
 
     public bool IsDialogueActive()
     {
         return isDialogueActive;
+    }
+
+    public bool IsDialogueEnded()
+    {
+        return isDialogueEnded;
     }
 
 }

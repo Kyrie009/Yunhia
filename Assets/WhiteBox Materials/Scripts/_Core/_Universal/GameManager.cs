@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 //Manages Gamestates, inventory and keeps several reference components for future reference.
-public enum GameState { Start, Playing, Paused, GameOver}
+public enum GameState { Start, Playing, Paused, GameOver, Interacting}
 public class GameManager : Singleton<GameManager>
 {
     //enums
@@ -37,6 +37,10 @@ public class GameManager : Singleton<GameManager>
                 Cursor.visible = true;
                 Time.timeScale = 0;
                 break;
+            case GameState.Interacting:
+                Cursor.visible = false;
+                Time.timeScale = 0;
+                break;
         }
     }
 
@@ -46,6 +50,7 @@ public class GameManager : Singleton<GameManager>
         GameEvents.OnPlaying += ChangeGameState;
         GameEvents.OnPause += ChangeGameState;
         GameEvents.OnGameOver += ChangeGameState;
+        GameEvents.OnInteracting += ChangeGameState;
     }
     private void OnDisable()
     {
@@ -53,5 +58,6 @@ public class GameManager : Singleton<GameManager>
         GameEvents.OnPlaying -= ChangeGameState;
         GameEvents.OnPause -= ChangeGameState;
         GameEvents.OnGameOver -= ChangeGameState;
+        GameEvents.OnInteracting -= ChangeGameState;
     }
 }

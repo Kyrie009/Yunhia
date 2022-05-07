@@ -5,11 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : GameBehaviour
 {
-    public AudioSource button;
+    public void LoadNewGame()
+    {
+        _AM.GetNewGameBGM();
+        GameEvents.ReportGamePlaying();
+        SceneManager.LoadScene("Runic Forest");
+    }
     //type in the scene you want loaded
     public void LoadScene(string _sceneName)
     {
-        button.Play();
+        _AM.GetButtonSound();
         GameEvents.ReportGamePlaying();
         SceneManager.LoadScene(_sceneName);
     }
@@ -22,7 +27,8 @@ public class SceneLoader : GameBehaviour
 
     public void LoadTitle()
     {
-        button.Play();
+        _AM.GetTitleBGM();
+        _AM.GetButtonSound();
         GameEvents.ReportGameStart();
         SceneManager.LoadScene("Title");
     }
@@ -30,7 +36,7 @@ public class SceneLoader : GameBehaviour
     //Quits our game
     public void QuitGame()
     {
-        button.Play();
+        _AM.GetButtonSound();
         Application.Quit();
     }
 }

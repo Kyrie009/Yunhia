@@ -22,21 +22,24 @@ public class UIManager : Singleton<UIManager>
     public GameObject weaponScreen;
     public GameObject itemScreen;
     public GameObject materialScreen;
-    public AudioSource audioSource;
+    public AudioSource audioSource; //audio source for sounds that pass through the HUD
+    public Animator cutsceneAnim;
+    public GameObject cutSceneDisplayScreen;
+    Image cutSceneImage;
     //Timerstuff
     //public TMP_Text timerText; //Text box for your timer
     //public Slider timerSlider; //Slider based on time
     bool paused = false;
 
-
     private void Start()
     {
+        //Initialization
         audioSource = GetComponent<AudioSource>();
+        cutSceneImage = cutSceneDisplayScreen.GetComponent<Image>();
         //SetDrawOrder
         gameOverScreen.SetActive(false);
         menuScreen.SetActive(false);
-        //Initialization
-        healthBar.maxValue = _P.maxHealth;
+        //Setup
         UpdateStatus();
         OpeningScreen();
     }
@@ -51,8 +54,10 @@ public class UIManager : Singleton<UIManager>
     //Updates the player's status
     public void UpdateStatus()
     {
+        healthBar.maxValue = _P.maxHealth;
         healthBar.value = _P.currentHealth;
         healthText.text = _P.currentHealth + " / " + _P.maxHealth;
+        manaBar.maxValue = _P.maxMana;
         manaBar.value = _P.currentMana;
         manaText.text = _P.currentMana + " / " + _P.maxMana;
         runesText.text = "Runes: " + _P.runeCurrency;
@@ -106,7 +111,18 @@ public class UIManager : Singleton<UIManager>
     
     public void GameOver(Player _p)
     {
-        gameOverScreen.SetActive(true);
+        animator.SetTrigger("GameOver");      
+    }
+
+    public void PlayCutscene(Sprite _cutScene)
+    {
+        cutSceneImage.sprite = _cutScene;
+        cutsceneAnim.SetTrigger("CutScene");
+    }
+    //Animation Events - Should have animation events in its own script
+    public void GameOverState() //gameover animation triggers gameover state
+    {
+        GameEvents.ReportGameOver();
     }
 
     //Regions

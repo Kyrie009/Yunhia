@@ -8,6 +8,7 @@ public static class GameEvents
     public static event Action<GameState> OnPlaying = null;
     public static event Action<GameState> OnPause = null;
     public static event Action<GameState> OnGameOver = null;
+    public static event Action<GameState> OnInteracting = null;
 
     //Player
     public static event Action<Player> OnPlayerDied = null;
@@ -29,6 +30,10 @@ public static class GameEvents
     public static void ReportGameOver()
     {
         OnGameOver?.Invoke(GameState.GameOver);
+    }
+    public static void ReportInteracting()
+    {
+        OnInteracting?.Invoke(GameState.Interacting);
     }
 
     //Player Status

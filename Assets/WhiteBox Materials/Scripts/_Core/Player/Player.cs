@@ -25,7 +25,7 @@ public class Player : Singleton<Player>
     public AudioClip hitSound;
     public AudioClip swordSwing;
     [Header("References")]
-    CharacterController2D controller;
+    public CharacterController2D controller;
     public Animator anim;
     public RecoveryCounter recoveryCounter;
 
@@ -43,12 +43,12 @@ public class Player : Singleton<Player>
         recoveryCounter = GetComponent<RecoveryCounter>();
         anim = GetComponent<Animator>();
         //Setup
-        Setup();
+        DefaultSetup();
     }
     // Update is called once per frame
     void Update()
     {
-        GetInput();     
+        GetInput();
         AttackInput();
     }
 
@@ -167,7 +167,7 @@ public class Player : Singleton<Player>
         recoveryJump = false;
     }
     //Resets Health and other status effects to default
-    public void Setup()
+    public void DefaultSetup()
     {
         currentHealth = maxHealth;
         currentMana = maxMana;
@@ -201,24 +201,21 @@ public class Player : Singleton<Player>
     //Takes hit
     public void Hit(int _dmg)
     {
-        if (recoveryCounter.recovering == false)
+        currentHealth -= _dmg;
+        _UI.audioSource.PlayOneShot(hitSound);
+        if (IsDead()) //check if you died
         {
-            currentHealth -= _dmg;
-            _UI.audioSource.PlayOneShot(hitSound);
-            if (IsDead()) //check if you died
-            {
-                currentHealth = 0;
-                GameEvents.ReportPlayerDied(this);
-                Invoke(nameof(GameOver), 1f);
-                recoveryCounter.counter = 0;
-            }
-            else //otherwise get hit as normal
-            {
-                controller.Knockback();
-                StartCoroutine(GotHit());
-            }
-            _UI.UpdateStatus();
-        }      
+            currentHealth = 0;
+            anim.SetBool("isDead", true);
+            GameEvents.ReportPlayerDied(this);
+        }
+        else //otherwise get hit as normal
+        {
+            controller.Knockback();
+            StartCoroutine(GotHit());
+            //recoveryCounter.counter = 0;
+        }
+        _UI.UpdateStatus();
     }
 
     //Hit indicator
@@ -226,11 +223,6 @@ public class Player : Singleton<Player>
     {
         yield return new WaitForSeconds(0.1f); //Prevent spam        
         anim.SetTrigger("Hit");
-    }
-
-    public void GameOver()
-    {
-        GameEvents.ReportGameOver();
     }
 
     //Check if Dead
