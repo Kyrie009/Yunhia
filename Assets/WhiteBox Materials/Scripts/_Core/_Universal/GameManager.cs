@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
 {
     //enums
     public GameState gameState;
+    //GameStateChecks
+    public bool isFirstRun = true;
 
     //GameStates
     public void ChangeGameState(GameState _gamestate)

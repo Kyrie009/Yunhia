@@ -17,7 +17,7 @@ public class Collectable : GameBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();      
     }
 
     void OnTriggerEnter2D(Collider2D col)

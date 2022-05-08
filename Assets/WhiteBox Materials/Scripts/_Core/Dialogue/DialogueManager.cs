@@ -15,7 +15,8 @@ public class DialogueManager : Singleton<DialogueManager>
     public TMP_Text sentenceText;
     //checks
     bool isDialogueActive = false;
-    bool isDialogueEnded = false;
+    [HideInInspector]
+    public bool isDialogueEnded = false;
 
     void Start()
     {

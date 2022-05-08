@@ -183,7 +183,7 @@ MonoBehaviour:
   bounceSound: {fileID: 8300000, guid: f467e1388ef044c0cb81b75ea9a83374, type: 3}
   collectSounds:
   - {fileID: 8300000, guid: 0381d2ccc51d44711af375574f3de89a, type: 3}
-  itemAmount: 10
+  itemAmount: 20
   itemName: HealthDrop
 --- !u!114 &6056909802633836649
 MonoBehaviour:

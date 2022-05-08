@@ -10,6 +10,10 @@ public class Enemy : GameBehaviour
     public int attack;
     int knockback;
     public float attackDistance = 10f;
+    public float respawnTime = 15f;
+    [Header("Rewards")]
+    public int runeMin = 10;
+    public int runeMax = 40;
     public AudioClip hitSound;
     Instantiator instantiator;
     //enemy shaders
@@ -73,7 +77,7 @@ public class Enemy : GameBehaviour
     //After enemy dies start timer for enemy to respawn and fight again
     IEnumerator StartRespawnTimer()
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(respawnTime);
         this.GetComponent<BoxCollider2D>().enabled = true;
         this.GetComponent<Renderer>().enabled = true;
         health = enemyData.health;
@@ -87,7 +91,7 @@ public class Enemy : GameBehaviour
 
     public void KillReward()
     {
-        _P.PlayerGains(0, 0, Random.Range(10,40)); // runes gain
+        _P.PlayerGains(0, 0, Random.Range(runeMin,runeMax)); // runes gain
         instantiator.InstantiateObjects(); //drop collectables
     }
 

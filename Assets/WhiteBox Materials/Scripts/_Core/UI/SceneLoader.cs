@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : GameBehaviour
 {
-    public void LoadNewGame()
+    public void LoadNewGame() //Sets everything for a fresh run of a new game.
     {
+        _GM.isFirstRun = true;
         _AM.GetNewGameBGM();
         GameEvents.ReportGamePlaying();
         SceneManager.LoadScene("Runic Forest");
@@ -21,12 +22,13 @@ public class SceneLoader : GameBehaviour
     //Reloads the current scene we are in
     public void ReloadScene()
     {
+        _GM.isFirstRun = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
     }
 
     public void LoadTitle()
-    {
+    {       
         _AM.GetTitleBGM();
         _AM.GetButtonSound();
         GameEvents.ReportGameStart();

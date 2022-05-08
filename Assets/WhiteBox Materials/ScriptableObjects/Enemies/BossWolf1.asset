@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BossWolf1
   m_EditorClassIdentifier: 
   enemyName: BossWolf1
-  health: 1000
-  attack: 25
+  health: 200
+  attack: 20
   knockBack: 500

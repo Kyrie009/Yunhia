@@ -136,6 +136,9 @@ MonoBehaviour:
   health: 0
   attack: 0
   attackDistance: 10
+  respawnTime: 60
+  runeMin: 1000
+  runeMax: 2000
   hitSound: {fileID: 8300000, guid: 33b69245045964ec1a92cd67194a85d9, type: 3}
 --- !u!114 &8851516813984106211
 MonoBehaviour:
@@ -167,8 +170,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objects:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 646617976663398287, guid: 08c3a0dfb7fd4c6448a6ad2186045279, type: 3}
+  - {fileID: 3269739439825219283, guid: 039f79a14f827c2498e86ae66e45a34b, type: 3}
+  - {fileID: 646617976663398287, guid: 08c3a0dfb7fd4c6448a6ad2186045279, type: 3}
+  - {fileID: 3269739439825219283, guid: 039f79a14f827c2498e86ae66e45a34b, type: 3}
+  - {fileID: 646617976663398287, guid: 08c3a0dfb7fd4c6448a6ad2186045279, type: 3}
+  - {fileID: 3269739439825219283, guid: 039f79a14f827c2498e86ae66e45a34b, type: 3}
+  - {fileID: 646617976663398287, guid: 08c3a0dfb7fd4c6448a6ad2186045279, type: 3}
+  - {fileID: 3269739439825219283, guid: 039f79a14f827c2498e86ae66e45a34b, type: 3}
+  - {fileID: 646617976663398287, guid: 08c3a0dfb7fd4c6448a6ad2186045279, type: 3}
   amount: 0
 --- !u!61 &8851516813984106210
 BoxCollider2D:
@@ -364,7 +374,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8851516814718703185}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 214.29001, y: 48.94, z: 0}
   m_LocalScale: {x: 1.8370365, y: 1.8640567, z: 1}
   m_Children:

@@ -12,7 +12,7 @@ public class DialogueTrigger : GameBehaviour
     public bool hasCutScene;
     [Header("CutScene")]
     public Sprite cutScene;
-    [Header("References")]
+    [Header("DialogueSequence")]
     public Dialogue dialogue;
     [Header("Sounds")]
     public AudioSource[] soundEffects;
@@ -45,7 +45,7 @@ public class DialogueTrigger : GameBehaviour
     {
         if (triggerOn && collision.CompareTag("Player"))
         {
-            TriggerDialogue();          
+            TriggerDialogue();
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -67,6 +67,7 @@ public class DialogueTrigger : GameBehaviour
             if (_DM.IsDialogueEnded())
             {
                 _UI.cutsceneAnim.SetTrigger("CloseCutScene");
+                _DM.isDialogueEnded = false;
             }
         }
     }
@@ -74,7 +75,7 @@ public class DialogueTrigger : GameBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         canInteract = false;
-        if (destroyOnCompletion)
+        if (destroyOnCompletion && collision.CompareTag("Player")) //comparetag to prevent over objects destroying it besides the player
         {
             Destroy(this.gameObject);
         }
@@ -83,10 +84,10 @@ public class DialogueTrigger : GameBehaviour
     public void TriggerDialogue()
     {
         //disable helpertext here
-        _DM.StartDialogue(dialogue);
+        _DM.StartDialogue(dialogue);       
         if (hasCutScene) //play cutscene if it has it
         {
-            _UI.PlayCutscene(cutScene);
+            _UI.PlayCutscene(cutScene);         
         }
         GameEvents.ReportInteracting();
     }
